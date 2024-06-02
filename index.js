@@ -2,11 +2,21 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+console.log(battleZonesData);
 
-const collisionsMap = []
+const collisionsMap = [];
+const battleZonesMap = [];
+
 for (let i = 0; i < collisions.length; i+= 70) {
   collisionsMap.push(collisions.slice(i, i + 70));
 }
+
+for (let i = 0; i < battleZonesData.length; i+= 70) {
+  battleZonesMap.push(battleZonesData.slice(i, i + 70));
+}
+
+console.log(collisionsMap)
+console.log(battleZonesMap)
 let lastKey;
 const offset = {
   x: 0,
@@ -27,8 +37,21 @@ collisionsMap.forEach((row, index) => {
   })
 })
 
-console.log(boundaries)
-// ctx.fillRect(0, 0, canvas.width, canvas.height);
+const battleZones = [];
+battleZonesMap.forEach((row, index) => {
+  row.forEach((symbol, jIndex) => {
+    if (symbol === 1025) {
+      battleZones.push(new Boundary({
+        position: {
+          x: jIndex * Boundary.width + offset.x,
+          y: index * Boundary.height + offset.y
+        }
+      }));
+    }
+  })
+})
+
+console.log(battleZones)
 
 
 const image = new Image();
@@ -77,7 +100,7 @@ const keys = {
   ArrowRight: false
 }
 
-const movables = [background, ...boundaries, foreground];
+const movables = [background, ...boundaries, foreground, ...battleZones];
 
 const rectangleCollision =(rectangle1, rectangle2) => {
   return (
@@ -85,6 +108,7 @@ const rectangleCollision =(rectangle1, rectangle2) => {
       rectangle1.position.x + rectangle1.width > rectangle2.position.x &&
       rectangle1.position.y < rectangle2.position.y + rectangle2.height &&
       rectangle1.position.y + rectangle1.height > rectangle2.position.y
+
   );
 }
 
@@ -93,10 +117,22 @@ const animate = () => {
   background.draw();
   boundaries.forEach(boundary => {
     boundary.draw();
-
   });
+  battleZones.forEach(zone => {
+    zone.draw();
+  })
   player.draw();
   foreground.draw();
+
+  if (keys.ArrowUp || keys.ArrowDown || keys.ArrowRight || keys.ArrowLeft) {
+    for (let i = 0; i < battleZones.length; i++) {
+      const battleZone = battleZones[i];
+      if (rectangleCollision(player, battleZone)) {
+        console.log('Wszedles do strefy walki')
+        break
+      }
+    }
+  }
 
   let move = true;
   player.moving = false;
@@ -182,7 +218,6 @@ const animate = () => {
 animate()
 
 window.addEventListener('keydown', (e) => {
-  console.log('key has been pressed', e)
   switch (e.key) {
     case 'ArrowUp':
       keys.ArrowUp = true
