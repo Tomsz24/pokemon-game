@@ -1,0 +1,19 @@
+.flashing-background {
+    background-color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+/*canvas {*/
+/*    transform: scale(3);*/
+/*}*/

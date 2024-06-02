@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-console.log(battleZonesData);
+console.log(gsap);
 
 const collisionsMap = [];
 const battleZonesMap = [];
@@ -111,9 +111,12 @@ const rectangleCollision =(rectangle1, rectangle2) => {
 
   );
 }
-
+const battle = {
+  initiated: false,
+}
 const animate = () => {
-  window.requestAnimationFrame(animate);
+  const animationId = window.requestAnimationFrame(animate);
+  // console.log(animationId)
   background.draw();
   boundaries.forEach(boundary => {
     boundary.draw();
@@ -123,6 +126,10 @@ const animate = () => {
   })
   player.draw();
   foreground.draw();
+
+  let move = true;
+  player.moving = false;
+  if(battle.initiated) return
 
   // activate a battle
   if (keys.ArrowUp || keys.ArrowDown || keys.ArrowRight || keys.ArrowLeft) {
@@ -141,13 +148,27 @@ const animate = () => {
           Math.max(player.position.y, battleZone.position.y))
       if (rectangleCollision(player, battleZone) && overlappingArea > (player.width * player.height) / 2 && Math.random() < 0.02) {
         console.log('Wszedles do strefy walki')
+        window.cancelAnimationFrame(animationId);
+        battle.initiated = true;
+        gsap.to('.flashing-background', {
+          opacity: 1,
+          repeat: 4,
+          yoyo: true,
+          duration: 0.4,
+          onComplete: () => {
+            animateBattle()
+            gsap.to('.flashing-background', {
+              opacity: 0,
+            })
+          }
+        })
+        // animateBattle();
         break
       }
     }
   }
 
-  let move = true;
-  player.moving = false;
+
   if (keys.ArrowUp && lastKey === 'ArrowUp') {
     player.moving = true;
     player.image = player.sprites.up
@@ -227,7 +248,22 @@ const animate = () => {
   }
 }
 
-animate()
+animate();
+
+const battleBackgroundImage = new Image();
+battleBackgroundImage.src = './img/battleBackground.png';
+
+const battleBackground = new BackgroundSprite({
+  position: {
+    x: 0,
+    y: 0,
+  },
+  image: battleBackgroundImage
+})
+const animateBattle = () => {
+  window.requestAnimationFrame(animateBattle);
+  battleBackground.draw();
+}
 
 window.addEventListener('keydown', (e) => {
   switch (e.key) {

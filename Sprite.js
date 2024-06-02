@@ -1,7 +1,6 @@
 class Sprite {
-  constructor({position, velocity, image, frames = {max: 1}, sprites = []}) {
+  constructor({position, image, frames = {max: 1}, sprites = []}) {
     this.position = position;
-    this.velocity = velocity;
     this.image = image;
     this.frames = {...frames, val: 0, elapsed: 0};
     this.sprites = sprites;
