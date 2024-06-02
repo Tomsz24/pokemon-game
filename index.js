@@ -124,10 +124,22 @@ const animate = () => {
   player.draw();
   foreground.draw();
 
+  // activate a battle
   if (keys.ArrowUp || keys.ArrowDown || keys.ArrowRight || keys.ArrowLeft) {
     for (let i = 0; i < battleZones.length; i++) {
       const battleZone = battleZones[i];
-      if (rectangleCollision(player, battleZone)) {
+      const overlappingArea =
+        (Math.min(
+            player.position.x + player.width,
+            battleZone.position.x + battleZone.width
+          ) -
+          Math.max(player.position.x, battleZone.position.x)) *
+        (Math.min(
+            player.position.y + player.height,
+            battleZone.position.y + battleZone.height
+          ) -
+          Math.max(player.position.y, battleZone.position.y))
+      if (rectangleCollision(player, battleZone) && overlappingArea > (player.width * player.height) / 2 && Math.random() < 0.02) {
         console.log('Wszedles do strefy walki')
         break
       }
