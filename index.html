@@ -3,12 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Pokemon Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
   <div class="wrapper">
     <div class="flashing-background"></div>
     <canvas></canvas>
+
+    <div class="container-battle-panel">
+      <div class="attack-panel">
+        <button>Attack 1</button>
+        <button>Attack 2</button>
+        <button>Attack 3</button>
+        <button>Attack 4</button>
+      </div>
+
+      <div class="attack-type">
+        <h1>attack type</h1>
+      </div>
+    </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="data/collisions.js"></script>

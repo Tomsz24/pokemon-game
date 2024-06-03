@@ -1,3 +1,14 @@
+* {
+    font-family: "Press Start 2P", system-ui;
+}
+
+body {
+    background-color: black;
+}
+
+h1 {
+    margin: 0;
+}
 .flashing-background {
     background-color: black;
     position: absolute;
@@ -14,6 +25,39 @@
     position: relative;
 }
 
+.container-battle-panel {
+    background-color: whitesmoke;
+    height: 300px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 5px solid black;
+    display: flex;
+}
+
+.attack-panel {
+    width: 66.66%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.attack-panel button {
+    border: 0;
+    cursor: pointer;
+}
+
+.attack-panel button:hover {
+    background-color: #aaa;
+}
+
+.attack-type {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 33.33%;
+    border-left: 5px solid black;
+}
 /*canvas {*/
 /*    transform: scale(3);*/
 /*}*/
