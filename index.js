@@ -128,7 +128,7 @@ const animate = () => {
   foreground.draw();
 
   let move = true;
-  player.moving = false;
+  player.animate = false;
   if(battle.initiated) return
 
   // activate a battle
@@ -170,7 +170,7 @@ const animate = () => {
 
 
   if (keys.ArrowUp && lastKey === 'ArrowUp') {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.up
     for (let i = 1; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -189,7 +189,7 @@ const animate = () => {
       })
     }
   } else if (keys.ArrowDown && lastKey === 'ArrowDown') {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.down;
     for (let i = 1; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -208,7 +208,7 @@ const animate = () => {
       })
     }
   } else if (keys.ArrowLeft && lastKey === 'ArrowLeft') {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.left
     for (let i = 1; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -227,7 +227,7 @@ const animate = () => {
       })
     }
   } else if (keys.ArrowRight && lastKey === 'ArrowRight') {
-    player.moving = true;
+    player.animate = true;
     player.image = player.sprites.right
     for (let i = 1; i < boundaries.length; i++) {
       const boundary = boundaries[i];
@@ -248,7 +248,7 @@ const animate = () => {
   }
 }
 
-animate();
+// animate();
 
 const battleBackgroundImage = new Image();
 battleBackgroundImage.src = './img/battleBackground.png';
@@ -260,10 +260,46 @@ const battleBackground = new BackgroundSprite({
   },
   image: battleBackgroundImage
 })
+
+const draggleImage = new Image();
+draggleImage.src = './img/draggleSprite.png';
+
+const draggle = new Sprite({
+  position: {
+    x: 1500,
+    y: 325
+  },
+  image: draggleImage,
+  frames: {
+    max: 4,
+    hold: 30
+  },
+  animate: true
+})
+
+const embyImage = new Image();
+embyImage.src = './img/embySprite.png';
+
+const emby = new Sprite({
+  position: {
+    x: 600,
+    y: 800
+  },
+  image: embyImage,
+  frames: {
+    max: 4,
+    hold: 10
+  },
+  animate: true
+})
 const animateBattle = () => {
   window.requestAnimationFrame(animateBattle);
   battleBackground.draw();
+  draggle.draw();
+  emby.draw();
 }
+
+animateBattle()
 
 window.addEventListener('keydown', (e) => {
   switch (e.key) {
