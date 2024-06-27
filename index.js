@@ -299,7 +299,19 @@ const animateBattle = () => {
   emby.draw();
 }
 
-animateBattle()
+animateBattle();
+
+document.querySelectorAll('button').forEach(button => {
+  button.addEventListener('click', () => {
+    emby.attack({ attack: {
+      name: 'Tackle',
+        damage: 10,
+        type: 'Normal'
+      },
+      recipient: draggle
+    })
+  })
+})
 
 window.addEventListener('keydown', (e) => {
   switch (e.key) {
