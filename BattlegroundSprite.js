@@ -12,9 +12,6 @@ class BackgroundSprite extends Sprite {
   }
 
   draw() {
-    // log the dimensions before drawing
-    console.log(`Drawing background: ${this.width}x${this.height}`);
-
     ctx.drawImage(
       this.image,
       this.frames.val * this.width,
