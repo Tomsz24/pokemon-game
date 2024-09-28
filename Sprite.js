@@ -44,8 +44,7 @@ class Sprite {
     }
   }
 
-  attack({attack, recipient}) {
-    const tl = gsap.timeline()
+  attack({attack, recipient, renderedSprites}) {
     this.health -= attack.damage;
     let movementDistance = 20;
     let healthBar = '#enemyHealthBar';
@@ -53,35 +52,83 @@ class Sprite {
       movementDistance = -20;
       healthBar = '#healthBar';
     }
+    switch (attack.name) {
+      case 'Tackle':
+        const tl = gsap.timeline()
 
-    tl.to(this.position, {
-      x: this.position.x - movementDistance
-    }).to(this.position, {
-      x: this.position.x + movementDistance * 2,
-      duration: 0.1,
-      onComplete: () => {
+        tl.to(this.position, {
+          x: this.position.x - movementDistance
+        }).to(this.position, {
+          x: this.position.x + movementDistance * 2,
+          duration: 0.1,
+          onComplete: () => {
+            // Enemy gets hit
+            gsap.to(recipient.position, {
+              x: recipient.position.x + movementDistance,
+              yoyo: true,
+              repeat: 5,
+              duration: 0.08,
+            })
 
-        gsap.to(recipient.position, {
-          x: recipient.position.x + movementDistance,
-          yoyo: true,
-          repeat: 5,
-          duration: 0.08,
+            gsap.to(recipient, {
+              opacity: 0,
+              repeat: 5,
+              yoyo: true,
+              duration: 0.08,
+            })
+
+            gsap.to(healthBar, {
+              width: `${this.health}%`
+            })
+          }
+        }).to(this.position, {
+          x: this.position.x - 20
+        })
+        break
+      case 'Fireball':
+        const fireballImage = new Image();
+        fireballImage.src = './img/fireball.png';
+        const fireball = new Sprite({
+          position: {
+            x: this.position.x,
+            y: this.position.y,
+          },
+          image: fireballImage,
+          frames: {
+            max: 4,
+            hold: 10
+          },
+          animate: true,
         })
 
-        gsap.to(recipient, {
-          opacity: 0,
-          repeat: 5,
-          yoyo: true,
-          duration: 0.08,
-        })
+        renderedSprites.push(fireball);
 
-        console.log(this.health)
-        gsap.to(healthBar, {
-          width: `${this.health}%`
+        gsap.to(fireball.position, {
+          x: recipient.position.x,
+          y: recipient.position.y,
+          onComplete: () => {
+            // Enemy gets hit
+            gsap.to(recipient.position, {
+              x: recipient.position.x + 10,
+              yoyo: true,
+              repeat: 5,
+              duration: 0.08,
+            })
+
+            gsap.to(recipient, {
+              opacity: 0,
+              repeat: 5,
+              yoyo: true,
+              duration: 0.08,
+            })
+
+            gsap.to(healthBar, {
+              width: `${this.health}%`
+            })
+            renderedSprites.pop();
+          }
         })
-      }
-    }).to(this.position, {
-      x: this.position.x - 20
-    })
+    }
+
   }
 }
