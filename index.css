@@ -73,6 +73,17 @@ h1 {
     display: flex;
 }
 
+.dialog-battle-panel {
+    position: absolute;
+    background-color: whitesmoke;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    padding: 12px;
+    display: none;
+}
+
 .attack-panel {
     width: 66.66%;
     display: grid;
