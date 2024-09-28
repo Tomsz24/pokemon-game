@@ -101,7 +101,7 @@ class Sprite {
           animate: true,
         })
 
-        renderedSprites.push(fireball);
+        renderedSprites.splice(1, 0, fireball);
 
         gsap.to(fireball.position, {
           x: recipient.position.x,
@@ -125,7 +125,7 @@ class Sprite {
             gsap.to(healthBar, {
               width: `${this.health}%`
             })
-            renderedSprites.pop();
+            renderedSprites.splice(1,1);
           }
         })
     }
