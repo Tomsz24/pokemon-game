@@ -5,10 +5,10 @@ class BackgroundSprite extends Sprite {
       console.log('Background image loaded');
       this.width = window.innerWidth;
       this.height = window.innerHeight;
-    }
+    };
     this.image.onerror = () => {
       console.error('Error loading background image');
-    }
+    };
   }
 
   draw() {
@@ -21,7 +21,7 @@ class BackgroundSprite extends Sprite {
       0,
       0,
       this.width,
-      this.height
+      this.height,
     );
   }
 }
