@@ -9,13 +9,16 @@ const battleBackground = new BackgroundSprite({
   image: battleBackgroundImage,
 });
 
-const draggle = new Sprite(monsters.Draggle);
-const emby = new Sprite(monsters.Emby);
+const draggle = new Monster(monsters.Draggle);
+const emby = new Monster(monsters.Emby);
+
+emby.attacks.forEach((attack) => {
+  const button = document.createElement('button');
+  button.innerText = attack.name;
+  document.getElementById('attacksBox').append(button);
+});
 
 const renderedSprites = [draggle, emby];
-const button = document.createElement('button');
-button.innerText = 'Fireball';
-document.getElementById('attacksBox').append(button);
 const animateBattle = () => {
   window.requestAnimationFrame(animateBattle);
   battleBackground.draw();
