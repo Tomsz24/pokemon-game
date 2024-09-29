@@ -122,7 +122,6 @@ const battle = {
 };
 const animate = () => {
   const animationId = window.requestAnimationFrame(animate);
-  // console.log(animationId)
   background.draw();
   boundaries.forEach((boundary) => {
     boundary.draw();
@@ -159,6 +158,9 @@ const animate = () => {
       ) {
         console.log('Wszedles do strefy walki');
         window.cancelAnimationFrame(animationId);
+        audio.Map.stop();
+        audio.initBattle.play();
+        audio.battle.play();
         battle.initiated = true;
         gsap.to('.flashing-background', {
           opacity: 1,
@@ -315,5 +317,13 @@ window.addEventListener('keyup', (e) => {
     case 'ArrowRight':
       keys.ArrowRight = false;
       break;
+  }
+});
+
+let mainMusic = false;
+window.addEventListener('click', () => {
+  if (!mainMusic) {
+    audio.Map.play();
+    mainMusic = true;
   }
 });

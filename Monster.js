@@ -50,6 +50,7 @@ class Monster extends Sprite {
             duration: 0.1,
             onComplete: () => {
               // Enemy gets hit
+              audio.tackleHit.play();
               gsap.to(recipient.position, {
                 x: recipient.position.x + movementDistance,
                 yoyo: true,
@@ -74,6 +75,7 @@ class Monster extends Sprite {
           });
         break;
       case 'Fireball':
+        audio.fireballInit.play();
         const fireballImage = new Image();
         fireballImage.src = './img/fireball.png';
         const fireball = new Sprite({
@@ -96,6 +98,7 @@ class Monster extends Sprite {
           x: recipient.position.x,
           y: recipient.position.y,
           onComplete: () => {
+            audio.fireballHit.play();
             // Enemy gets hit
             gsap.to(recipient.position, {
               x: recipient.position.x + 10,
@@ -129,5 +132,7 @@ class Monster extends Sprite {
     gsap.to(this, {
       opacity: 0,
     });
+    audio.battle.stop();
+    audio.victory.play();
   }
 }

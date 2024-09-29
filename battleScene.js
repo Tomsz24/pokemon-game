@@ -43,6 +43,7 @@ const initBattle = () => {
           });
 
           battle.initiated = false;
+          audio.Map.play();
         },
       });
     });
@@ -114,8 +115,9 @@ const animateBattle = () => {
   });
 };
 
-initBattle();
-animateBattle();
+animate();
+// initBattle();
+// animateBattle();
 
 document.getElementById('dialogBox').addEventListener('click', () => {
   if (queue.length === 0) {
