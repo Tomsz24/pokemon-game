@@ -31,7 +31,6 @@ const animateBattle = () => {
 animateBattle();
 
 const queue = [];
-
 // our event listener for buttons (attack)
 document.querySelectorAll('button').forEach((button) => {
   button.addEventListener('click', (e) => {
@@ -52,6 +51,16 @@ document.querySelectorAll('button').forEach((button) => {
         renderedSprites,
       });
     });
+  });
+  button.addEventListener('mouseover', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML];
+    console.log(selectedAttack);
+    document.getElementById('attackType').style.color = selectedAttack.color;
+    document.getElementById('attackType').innerText = `
+    Attack type: ${selectedAttack.type}
+    
+    Damage: ${selectedAttack.damage}
+    `;
   });
 });
 
