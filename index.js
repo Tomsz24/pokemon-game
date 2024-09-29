@@ -1,5 +1,5 @@
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.querySelector('canvas');
+const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 console.log(gsap);
@@ -58,21 +58,21 @@ battleZonesMap.forEach((row, index) => {
 console.log(battleZones);
 
 const image = new Image();
-image.src = "./img/PelletTown.png";
+image.src = './img/PelletTown.png';
 const foregroundImage = new Image();
-foregroundImage.src = "./img/foregroundObjects.png";
+foregroundImage.src = './img/foregroundObjects.png';
 
 const playerDownImage = new Image();
-playerDownImage.src = "./img/playerDown.png";
+playerDownImage.src = './img/playerDown.png';
 
 const playerUpImage = new Image();
-playerUpImage.src = "./img/playerUp.png";
+playerUpImage.src = './img/playerUp.png';
 
 const playerLeftImage = new Image();
-playerLeftImage.src = "./img/playerLeft.png";
+playerLeftImage.src = './img/playerLeft.png';
 
 const playerRightImage = new Image();
-playerRightImage.src = "./img/playerRight.png";
+playerRightImage.src = './img/playerRight.png';
 
 const speed = 3;
 
@@ -157,17 +157,18 @@ const animate = () => {
         overlappingArea > (player.width * player.height) / 2 &&
         Math.random() < 0.02
       ) {
-        console.log("Wszedles do strefy walki");
+        console.log('Wszedles do strefy walki');
         window.cancelAnimationFrame(animationId);
         battle.initiated = true;
-        gsap.to(".flashing-background", {
+        gsap.to('.flashing-background', {
           opacity: 1,
           repeat: 4,
           yoyo: true,
           duration: 0.4,
           onComplete: () => {
+            initBattle();
             animateBattle();
-            gsap.to(".flashing-background", {
+            gsap.to('.flashing-background', {
               opacity: 0,
             });
           },
@@ -178,7 +179,7 @@ const animate = () => {
     }
   }
 
-  if (keys.ArrowUp && lastKey === "ArrowUp") {
+  if (keys.ArrowUp && lastKey === 'ArrowUp') {
     player.animate = true;
     player.image = player.sprites.up;
     for (let i = 1; i < boundaries.length; i++) {
@@ -192,7 +193,7 @@ const animate = () => {
           },
         })
       ) {
-        console.log("blokada");
+        console.log('blokada');
         move = false;
         break;
       }
@@ -202,7 +203,7 @@ const animate = () => {
         move.position.y += speed;
       });
     }
-  } else if (keys.ArrowDown && lastKey === "ArrowDown") {
+  } else if (keys.ArrowDown && lastKey === 'ArrowDown') {
     player.animate = true;
     player.image = player.sprites.down;
     for (let i = 1; i < boundaries.length; i++) {
@@ -216,7 +217,7 @@ const animate = () => {
           },
         })
       ) {
-        console.log("blokada");
+        console.log('blokada');
         move = false;
         break;
       }
@@ -226,7 +227,7 @@ const animate = () => {
         move.position.y -= speed;
       });
     }
-  } else if (keys.ArrowLeft && lastKey === "ArrowLeft") {
+  } else if (keys.ArrowLeft && lastKey === 'ArrowLeft') {
     player.animate = true;
     player.image = player.sprites.left;
     for (let i = 1; i < boundaries.length; i++) {
@@ -240,7 +241,7 @@ const animate = () => {
           },
         })
       ) {
-        console.log("blokada");
+        console.log('blokada');
         move = false;
         break;
       }
@@ -250,7 +251,7 @@ const animate = () => {
         move.position.x += speed;
       });
     }
-  } else if (keys.ArrowRight && lastKey === "ArrowRight") {
+  } else if (keys.ArrowRight && lastKey === 'ArrowRight') {
     player.animate = true;
     player.image = player.sprites.right;
     for (let i = 1; i < boundaries.length; i++) {
@@ -264,7 +265,7 @@ const animate = () => {
           },
         })
       ) {
-        console.log("blokada");
+        console.log('blokada');
         move = false;
         break;
       }
@@ -279,39 +280,39 @@ const animate = () => {
 
 // animate();
 
-window.addEventListener("keydown", (e) => {
+window.addEventListener('keydown', (e) => {
   switch (e.key) {
-    case "ArrowUp":
+    case 'ArrowUp':
       keys.ArrowUp = true;
       lastKey = e.key;
       break;
-    case "ArrowDown":
+    case 'ArrowDown':
       keys.ArrowDown = true;
       lastKey = e.key;
       break;
-    case "ArrowLeft":
+    case 'ArrowLeft':
       keys.ArrowLeft = true;
       lastKey = e.key;
       break;
-    case "ArrowRight":
+    case 'ArrowRight':
       keys.ArrowRight = true;
       lastKey = e.key;
       break;
   }
 });
 
-window.addEventListener("keyup", (e) => {
+window.addEventListener('keyup', (e) => {
   switch (e.key) {
-    case "ArrowUp":
+    case 'ArrowUp':
       keys.ArrowUp = false;
       break;
-    case "ArrowDown":
+    case 'ArrowDown':
       keys.ArrowDown = false;
       break;
-    case "ArrowLeft":
+    case 'ArrowLeft':
       keys.ArrowLeft = false;
       break;
-    case "ArrowRight":
+    case 'ArrowRight':
       keys.ArrowRight = false;
       break;
   }
