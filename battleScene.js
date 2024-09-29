@@ -19,8 +19,9 @@ emby.attacks.forEach((attack) => {
 });
 
 const renderedSprites = [draggle, emby];
+let battleAnimationId;
 const animateBattle = () => {
-  window.requestAnimationFrame(animateBattle);
+  battleAnimationId = window.requestAnimationFrame(animateBattle);
   battleBackground.draw();
 
   renderedSprites.forEach((sprite) => {
@@ -46,6 +47,19 @@ document.querySelectorAll('button').forEach((button) => {
       queue.push(() => {
         draggle.faint();
       });
+      queue.push(() => {
+        gsap.to('.flashing-background', {
+          opacity: 1,
+          onComplete: () => {
+            cancelAnimationFrame(battleAnimationId);
+            animate();
+            document.getElementById('userInterface').style.display = 'none';
+            gsap.to('.flashing-background', {
+              opacity: 0,
+            });
+          },
+        });
+      });
       return;
     }
 
@@ -61,7 +75,6 @@ document.querySelectorAll('button').forEach((button) => {
       });
 
       if (emby.health <= 0) {
-        console.log('Is it here?');
         queue.push(() => {
           emby.faint();
         });
