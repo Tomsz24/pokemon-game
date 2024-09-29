@@ -122,5 +122,12 @@ class Monster extends Sprite {
 
   faint() {
     console.log('Faint ', this.name);
+    document.getElementById('dialogBox').innerText = `${this.name} fainted!`;
+    gsap.to(this.position, {
+      y: this.position.y + 20,
+    });
+    gsap.to(this, {
+      opacity: 0,
+    });
   }
 }

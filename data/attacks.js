@@ -7,8 +7,14 @@ const attacks = {
   },
   Fireball: {
     name: 'Fireball',
-    damage: 25,
+    damage: 100,
     type: 'Fire',
     color: 'red',
+  },
+  Fatality: {
+    name: 'Fatality',
+    damage: 100,
+    type: 'Death',
+    color: 'pink',
   },
 };

@@ -41,6 +41,7 @@ document.querySelectorAll('button').forEach((button) => {
       renderedSprites,
     });
 
+    //Check health of opponent
     if (draggle.health <= 0) {
       queue.push(() => {
         draggle.faint();
@@ -58,8 +59,16 @@ document.querySelectorAll('button').forEach((button) => {
         recipient: emby,
         renderedSprites,
       });
+
+      if (emby.health <= 0) {
+        console.log('Is it here?');
+        queue.push(() => {
+          emby.faint();
+        });
+      }
     });
   });
+
   button.addEventListener('mouseover', (e) => {
     const selectedAttack = attacks[e.currentTarget.innerHTML];
 
