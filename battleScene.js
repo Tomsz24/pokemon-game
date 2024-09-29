@@ -41,6 +41,14 @@ document.querySelectorAll('button').forEach((button) => {
       renderedSprites,
     });
 
+    if (draggle.health <= 0) {
+      queue.push(() => {
+        draggle.faint();
+      });
+      return;
+    }
+
+    // draggle or enemy attakc right here
     const randomAttack =
       draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)];
 
@@ -54,7 +62,7 @@ document.querySelectorAll('button').forEach((button) => {
   });
   button.addEventListener('mouseover', (e) => {
     const selectedAttack = attacks[e.currentTarget.innerHTML];
-    console.log(selectedAttack);
+
     document.getElementById('attackType').style.color = selectedAttack.color;
     document.getElementById('attackType').innerText = `
     Attack type: ${selectedAttack.type}

@@ -29,7 +29,7 @@ class Monster extends Sprite {
     dialogueBox.style.display = 'block';
     dialogueBox.innerText = `${this.name} used ${attack.name}`;
 
-    this.health -= attack.damage;
+    recipient.health -= attack.damage;
     let rotation = 1;
     let movementDistance = 20;
     let healthBar = '#enemyHealthBar';
@@ -65,7 +65,7 @@ class Monster extends Sprite {
               });
 
               gsap.to(healthBar, {
-                width: `${this.health}%`,
+                width: `${recipient.health}%`,
               });
             },
           })
@@ -112,11 +112,15 @@ class Monster extends Sprite {
             });
 
             gsap.to(healthBar, {
-              width: `${this.health}%`,
+              width: `${recipient.health}%`,
             });
             renderedSprites.splice(1, 1);
           },
         });
     }
+  }
+
+  faint() {
+    console.log('Faint ', this.name);
   }
 }
