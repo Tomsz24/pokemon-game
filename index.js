@@ -5,6 +5,11 @@ canvas.height = window.innerHeight;
 
 const collisionsMap = [];
 const battleZonesMap = [];
+const startingPoint = [];
+
+for (let i = 0; i < playerStartingPoint.length; i += 70) {
+  startingPoint.push(playerStartingPoint.slice(i, i + 70));
+}
 
 for (let i = 0; i < collisions.length; i += 70) {
   collisionsMap.push(collisions.slice(i, i + 70));
@@ -15,7 +20,7 @@ for (let i = 0; i < battleZonesData.length; i += 70) {
 }
 
 let lastKey;
-const offset = {
+let offset = {
   x: 0,
   y: -300,
 };
@@ -71,6 +76,20 @@ playerRightImage.src = './img/playerRight.png';
 
 const speed = 3;
 
+const findPlayerStartingPoint = (mapData) => {
+  for (let y = 0; y < mapData.length; y++) {
+    for (let x = 0; x < mapData[y].length; x++) {
+      if (mapData[y][x] === 1025) {
+        return { x, y };
+      }
+    }
+  }
+  throw new Error(`Starting point hasn't been found`);
+};
+//
+const whereToStart = findPlayerStartingPoint(startingPoint);
+console.log(whereToStart);
+
 const background = new Sprite({
   position: { x: offset.x, y: offset.y },
   image: image,
@@ -82,8 +101,8 @@ const foreground = new Sprite({
 const player = new Sprite({
   // Dimensions of player image 192x68
   position: {
-    x: canvas.width / 2 - 192 / 4 / 2,
-    y: canvas.height / 2 - 68 / 2,
+    x: whereToStart.x * Boundary.width + offset.x,
+    y: whereToStart.y * Boundary.height + offset.y,
   },
   image: playerDownImage,
   frames: { max: 4, hold: 10 },
