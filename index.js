@@ -2,7 +2,6 @@ const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-console.log(gsap);
 
 const collisionsMap = [];
 const battleZonesMap = [];
@@ -15,8 +14,6 @@ for (let i = 0; i < battleZonesData.length; i += 70) {
   battleZonesMap.push(battleZonesData.slice(i, i + 70));
 }
 
-console.log(collisionsMap);
-console.log(battleZonesMap);
 let lastKey;
 const offset = {
   x: 0,
@@ -54,8 +51,6 @@ battleZonesMap.forEach((row, index) => {
     }
   });
 });
-
-console.log(battleZones);
 
 const image = new Image();
 image.src = './img/PelletTown.png';
@@ -156,7 +151,6 @@ const animate = () => {
         overlappingArea > (player.width * player.height) / 2 &&
         Math.random() < 0.02
       ) {
-        console.log('Wszedles do strefy walki');
         window.cancelAnimationFrame(animationId);
         audio.Map.stop();
         audio.initBattle.play();
@@ -195,7 +189,6 @@ const animate = () => {
           },
         })
       ) {
-        console.log('blokada');
         move = false;
         break;
       }
@@ -219,7 +212,6 @@ const animate = () => {
           },
         })
       ) {
-        console.log('blokada');
         move = false;
         break;
       }
@@ -243,7 +235,6 @@ const animate = () => {
           },
         })
       ) {
-        console.log('blokada');
         move = false;
         break;
       }
@@ -267,7 +258,6 @@ const animate = () => {
           },
         })
       ) {
-        console.log('blokada');
         move = false;
         break;
       }
