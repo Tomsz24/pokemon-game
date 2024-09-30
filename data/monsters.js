@@ -30,6 +30,13 @@ const monsters = {
     animate: true,
     isEnemy: true,
     name: 'Draggle',
-    attacks: [attacks.Fireball, attacks.Tackle, attacks.Tackle, attacks.Tackle],
+    attacks: [
+      attacks.Fireball,
+      attacks.Tackle,
+      attacks.Tackle,
+      attacks.Tackle,
+      attacks.Tackle,
+      attacks.Tackle,
+    ],
   },
 };
